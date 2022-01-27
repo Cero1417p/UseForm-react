@@ -1,24 +1,28 @@
 import { useState } from "react"
 
 
-export const useForm = ( initialState = {} ) => {
-    
+export const useForm = (initialState = {}) => {
+
     const [values, setValues] = useState(initialState);
 
     const reset = () => {
-        setValues( initialState );
+        setValues(initialState);
     }
 
+    const handleInputChange = (event) => {
 
-    const handleInputChange = ({ target }) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
 
         setValues({
             ...values,
-            [ target.name ]: target.value
+            [name]: value
         });
 
     }
 
-    return [ values, handleInputChange, reset ];
+    return [values, handleInputChange, reset];
 
 }
+
